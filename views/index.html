@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gestão de Usuários</h1>
+
+        <!-- Formulário para criar usuário -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4>Criar Usuário</h4>
+                <form id="createUserForm">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Criar Usuário</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabela para exibir usuários -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4>Lista de Usuários</h4>
+                <table class="table table-bordered" id="usuariosTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os usuários serão listados aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function carregarUsuarios() {
+            $.get('/usuarios', function(data) {
+                const usuariosTableBody = $('#usuariosTable tbody');
+                usuariosTableBody.empty(); // Limpa a tabela antes de adicionar os usuários
+
+                data.forEach(usuario => {
+                    usuariosTableBody.append(`
+                        <tr>
+                            <td>${usuario._id}</td>
+                            <td>${usuario.nome}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editarUsuario('${usuario._id}')">Editar</button>
+                                <button class="btn btn-danger btn-sm" onclick="deletarUsuario('${usuario._id}')">Deletar</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            });
+        }
+
+        // Função para criar um novo usuário
+        $('#createUserForm').on('submit', function(event) {
+            event.preventDefault();
+            const nome = $('#nome').val();
+
+            $.ajax({
+                url: '/usuarios',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ nome: nome }),
+                success: function() {
+                    alert('Usuário criado com sucesso!');
+                    $('#nome').val('');
+                    carregarUsuarios();
+                },
+                error: function() {
+                    alert('Erro ao criar o usuário');
+                }
+            });
+        });
+
+        // Função para editar um usuário
+        function editarUsuario(id) {
+            const novoNome = prompt('Digite o novo nome para o usuário:');
+            if (novoNome) {
+                $.ajax({
+                    url: `/usuarios/${id}`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ nome: novoNome }),
+                    success: function() {
+                        alert(`Usuário ${id} atualizado com sucesso!`);
+                        carregarUsuarios();
+                    },
+                    error: function() {
+                        alert('Erro ao atualizar o usuário');
+                    }
+                });
+            }
+        }
+
+        function deletarUsuario(id) {
+            if (confirm(`Tem certeza que deseja deletar o usuário com ID: ${id}?`)) {
+                $.ajax({
+                    url: `/usuarios/${id}`,
+                    type: 'DELETE',
+                    success: function() {
+                        alert(`Usuário ${id} deletado com sucesso!`);
+                        carregarUsuarios();
+                    },
+                    error: function() {
+                        alert('Erro ao deletar o usuário');
+                    }
+                });
+            }
+        }
+
+        // Carregar a lista de usuários ao carregar a página
+        $(document).ready(function() {
+            carregarUsuarios();
+        });
+    </script>
+</body>
+</html>
