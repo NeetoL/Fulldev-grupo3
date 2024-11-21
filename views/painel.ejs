@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (Icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- AdminLTE CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css" rel="stylesheet">
+
+    <style>
+        /* Transição para alternar modos */
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark bg-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Dark Mode Toggle -->
+                <li class="nav-item">
+                    <button id="toggle-dark-mode" class="btn btn-outline-light btn-sm">
+                        <i class="fas fa-moon"></i> Dark Mode
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="https://via.placeholder.com/50" alt="Logo" class="brand-image img-circle elevation-3">
+                <h5 class="m-0">Olá, <%= usuario.nome %>!</h5>
+            </a>
+            <!-- Sidebar Menu -->
+            <div class="sidebar">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Dashboard -->
+                        <li class="nav-item">
+                            <a href="?tela=dashboard" data-page="dashboard" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+
+                        <!-- Gerenciar Usuários -->
+                        <li class="nav-item">
+                            <a href="?tela=usuarios" data-page="usuarios" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Gerenciar Usuários</p>
+                            </a>
+                        </li>
+
+                        <!-- Dropdown Criar -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Criar <i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="?tela=criarusuario" data-page="criarusuario" class="nav-link">
+                                        <i class="fas fa-user-plus nav-icon"></i>
+                                        <p>Usuário</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="?tela=criarformulario" data-page="criarformulario" class="nav-link">
+                                        <i class="fas fa-file-alt nav-icon"></i>
+                                        <p>Formulário</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Gerenciar Formulários -->
+                        <li class="nav-item">
+                            <a href="#" data-page="gerenciarformularios" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>Gerenciar Formulários</p>
+                            </a>
+                        </li>
+
+                        <!-- Sair -->
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Sair</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content" id="content">                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer text-center">
+            <strong>&copy; 2024 <a href="#">Your Company</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js"></script>
+
+    <script>
+        // Alterna entre Dark Mode e Light Mode
+        document.getElementById('toggle-dark-mode').addEventListener('click', function () {
+            const body = document.body;
+            const btn = this;
+
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                btn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                btn.classList.replace('btn-light', 'btn-outline-light');
+            } else {
+                body.classList.add('dark-mode');
+                btn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                btn.classList.replace('btn-outline-light', 'btn-light');
+            }
+        });
+
+        $(document).ready(function () {
+            // Função para carregar uma página dinamicamente
+            function carregarTela(page) {
+                // Enviar requisição POST para o servidor
+                $.ajax({
+                    type: "POST",
+                    url: `/painel/dashboard/${page}`, // Rota dinâmica
+                    success: function (response) {
+                        // Inserir conteúdo recebido na div #content
+                        $('#content').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Exibir mensagem de erro caso a requisição falhe
+                        $('#content').html(`<p>Erro ao carregar a página: ${xhr.status} ${xhr.statusText}</p>`);
+                    }
+                });
+            }
+
+            // Verificar o parâmetro "tela" na URL
+            const params = new URLSearchParams(window.location.search);
+            const tela = params.get('tela') || 'dashboard'; // Se não houver "tela", usar "dashboard" como padrão
+
+            // Carregar a tela inicial com base no parâmetro
+            carregarTela(tela);
+
+            // Clique nos links do sidebar
+            $('a.nav-link').on('click', function (e) {
+                const page = $(this).data('page'); // Nome da página a carregar
+                if (page) {
+                    e.preventDefault(); // Prevenir comportamento padrão do link
+                    carregarTela(page); // Carregar a tela correspondente
+
+                    // Atualizar a URL sem recarregar a página
+                    const newUrl = `${window.location.pathname}?tela=${page}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
