@@ -3,184 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>FullDev</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ+V5X7NlqJlZlgUqbsVgzlr6/M0q1ttwM1lJzUzN9BOUlZaD2siWQ4N6WSO" crossorigin="anonymous">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
-
-        :root{
-            --base-clr: #11121a;
-            --line-clr: #42434a;
-            --hover-clr: #222533;
-            --text-clr: #e6e6ef;
-            --accent-clr: #5e63ff;
-            --secondary-text-clr: #b0b3c1;
-        }
-
-        html{
-            font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.5rem;
-        }
-
         body {
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            font-family: Arial, sans-serif;
         }
-
-        .home-card {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 400px;
+        .main-header {
+            background-color: #B22D00;
+            color: white;
+            padding: 20px 0;
         }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
+        .cta-button {
+            background-color: #B22D00;
+            color: white;
         }
-
-        .btn-custom {
-            background-color: var(--accent-clr);
-            color: #fff;
+        .feature-icon {
+            font-size: 2rem;
+            color: #B22D00;
         }
-
-        .btn-custom:hover {
-            background-color: #4a55d4;
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
         }
-
-        @media (max-width: 768px) {
-            .home-card {
-                padding: 15px;
-            }
-
-            .logo {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .home-card {
-                padding: 10px;
-            }
-
-            .logo {
-                width: 40px;
-                height: 40px;
-            }
+        .developer-img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card home-card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img src="https://img.icons8.com/ios-filled/60/000000/home.png" alt="Logo" class="logo">
-                            <h5 class="mb-4">Bem-vindo ao Painel Admin</h5>
+    <!-- Cabeçalho -->
+    <header class="main-header text-center">
+        <div class="container">
+            <h1>Transforme seus processos com formulários personalizados</h1>
+            <p>Simplifique a coleta de dados com facilidade e segurança.</p>
+            <a href="#features" class="btn cta-button">Descubra mais</a>
+        </div>
+    </header>
 
-                            <!-- Botões para navegação -->
-                            <a href="/painel" class="btn btn-custom w-100 mb-3">Login</a>
-                            <a href="/logon" class="btn btn-outline-secondary w-100 mb-3">Criar Conta</a>
+    <!-- Proposta de Valor -->
+    <section class="text-center py-5" id="features">
+        <div class="container">
+            <h2>O que oferecemos</h2>
+            <p>Com nosso sistema de criação de formulários, você pode personalizar cada detalhe para atender às suas necessidades específicas.</p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <h4>Fácil Personalização</h4>
+                    <p>Crie formulários adaptados ao seu fluxo de trabalho com a opção de arrastar e soltar campos.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h4>Segurança de Dados</h4>
+                    <p>Todos os dados coletados são criptografados e armazenados de forma segura.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <h4>Integração Simples</h4>
+                    <p>Integre com seus sistemas de forma rápida e sem complicação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quem Somos Nós -->
+    <section class="bg-light text-center py-5">
+        <div class="container">
+            <h2>Quem Somos Nós</h2>
+            <p>Somos uma equipe apaixonada por tornar a criação de formulários mais simples e acessível para todos.</p>
+            <div class="row">
+                <!-- Developer 1 -->
+                <div class="col-md-2 mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="developer-img" alt="Developer 1">
+                    <h5>João Silva</h5>
+                    <p>Frontend Developer</p>
+                </div>
+                <!-- Developer 2 -->
+                <div class="col-md-2 mb-4">
+                    <img src="https://randomuser.me/api/portraits/women/35.jpg" class="developer-img" alt="Developer 2">
+                    <h5>Maria Oliveira</h5>
+                    <p>Backend Developer</p>
+                </div>
+                <!-- Developer 3 -->
+                <div class="col-md-2 mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/40.jpg" class="developer-img" alt="Developer 3">
+                    <h5>Carlos Santos</h5>
+                    <p>DevOps Engineer</p>
+                </div>
+                <!-- Developer 4 -->
+                <div class="col-md-2 mb-4">
+                    <img src="https://randomuser.me/api/portraits/women/42.jpg" class="developer-img" alt="Developer 4">
+                    <h5>Ana Costa</h5>
+                    <p>UI/UX Designer</p>
+                </div>
+                <!-- Developer 5 -->
+                <div class="col-md-2 mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/50.jpg" class="developer-img" alt="Developer 5">
+                    <h5>Lucas Pereira</h5>
+                    <p>Product Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preços -->
+    <section class="py-5 text-center" id="pricing">
+        <div class="container">
+            <h2>Planos de Preços</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Plano Básico</h4>
+                            <p class="card-text">Ideal para pequenas empresas que querem começar a criar formulários.</p>
+                            <p><strong>$19/mês</strong></p>
+                            <a href="#" class="btn cta-button">Assine Agora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Plano Premium</h4>
+                            <p class="card-text">Perfeito para empresas que necessitam de mais funcionalidades e integrações.</p>
+                            <p><strong>$49/mês</strong></p>
+                            <a href="#" class="btn cta-button">Assine Agora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Plano Enterprise</h4>
+                            <p class="card-text">Para grandes empresas com necessidades avançadas de personalização e suporte dedicado.</p>
+                            <p><strong>$99/mês</strong></p>
+                            <a href="#" class="btn cta-button">Assine Agora</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Rodapé -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p>&copy; 2024 Nome da Empresa | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Serviço</a></p>
+            <div>
+                <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pTt0CQZjYWV8k+FhcFhM7v5b6tEdjJc9pNxdgdjGsHcm6Xb" crossorigin="anonymous"></script>
 </body>
 </html>
-<script>
-    function carregarUsuarios() {
-        $.get('/usuarios', function(data) {
-            const usuariosTableBody = $('#usuariosTable tbody');
-            usuariosTableBody.empty(); // Limpa a tabela antes de adicionar os usuários
-
-            data.forEach(usuario => {
-                usuariosTableBody.append(`
-                    <tr>
-                        <td>${usuario._id}</td>
-                        <td>${usuario.nome}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editarUsuario('${usuario._id}')">Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deletarUsuario('${usuario._id}')">Deletar</button>
-                        </td>
-                    </tr>
-                `);
-            });
-        });
-    }
-
-    // Função para criar um novo usuário
-    $('#createUserForm').on('submit', function(event) {
-        event.preventDefault();
-        const nome = $('#nome').val();
-
-        $.ajax({
-            url: '/usuarios',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ nome: nome }),
-            success: function() {
-                alert('Usuário criado com sucesso!');
-                $('#nome').val('');
-                carregarUsuarios();
-            },
-            error: function() {
-                alert('Erro ao criar o usuário');
-            }
-        });
-    });
-
-    // Função para editar um usuário
-    function editarUsuario(id) {
-        const novoNome = prompt('Digite o novo nome para o usuário:');
-        if (novoNome) {
-            $.ajax({
-                url: `/usuarios/${id}`,
-                type: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify({ nome: novoNome }),
-                success: function() {
-                    alert(`Usuário ${id} atualizado com sucesso!`);
-                    carregarUsuarios();
-                },
-                error: function() {
-                    alert('Erro ao atualizar o usuário');
-                }
-            });
-        }
-    }
-
-    function deletarUsuario(id) {
-        if (confirm(`Tem certeza que deseja deletar o usuário com ID: ${id}?`)) {
-            $.ajax({
-                url: `/usuarios/${id}`,
-                type: 'DELETE',
-                success: function() {
-                    alert(`Usuário ${id} deletado com sucesso!`);
-                    carregarUsuarios();
-                },
-                error: function() {
-                    alert('Erro ao deletar o usuário');
-                }
-            });
-        }
-    }
-
-    // Carregar a lista de usuários ao carregar a página
-    $(document).ready(function() {
-        carregarUsuarios();
-    });
-</script>

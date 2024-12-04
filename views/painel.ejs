@@ -13,10 +13,94 @@
     <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css" rel="stylesheet">
 
     <style>
-        /* Transição para alternar modos */
-        body {
-            transition: background-color 0.3s, color 0.3s;
-        }
+            /* Fundo principal */
+    body {
+        background-color: #1c1c1c; /* Dark gray */
+        color: #ffffff; /* Texto claro */
+    }
+
+    /* Navbar escura com detalhes */
+    .navbar-dark {
+        background-color: #1c1c1c !important;
+        border-bottom: 2px solid #B22D00;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: #ffffff;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #B22D00;
+    }
+
+    /* Sidebar escura */
+    .main-sidebar {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+        color: #ffffff;
+    }
+
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+        background-color: #B22D00;
+        color: #ffffff !important;
+    }
+
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover {
+        background-color: #262626;
+        color: #B22D00;
+    }
+
+    /* Botões com detalhes */
+    .btn-outline-light {
+        color: #ffffff;
+        border-color: #B22D00;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #B22D00;
+        color: #ffffff;
+    }
+
+    .btn-light {
+        background-color: #B22D00;
+        color: #ffffff;
+        border-color: #9E2800;
+    }
+
+    .btn-light:hover {
+        background-color: #9E2800;
+        color: #ffffff;
+    }
+
+    /* Links de destaque */
+    a {
+        color: #B22D00;
+    }
+
+    a:hover {
+        color: #9E2800;
+        text-decoration: none;
+    }
+
+    /* Rodapé escuro com detalhes */
+    .main-footer {
+        background-color: #121212;
+        color: #ffffff;
+        border-top: 2px solid #B22D00;
+    }
+
+    /* Marca da barra lateral */
+    .brand-link {
+        border-bottom: 2px solid #B22D00 !important;
+        background-color: #1c1c1c !important;
+    }
+
+    .brand-link h5 {
+        color: #ffffff !important;
+    }
     </style>
 </head>
 
@@ -74,6 +158,14 @@
                             </a>
                         </li>
 
+                        <!-- Gerenciar Formulários -->
+                        <li class="nav-item">
+                            <a href="#" data-page="gerenciarformularios" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>Gerenciar Formulários</p>
+                            </a>
+                        </li>
+
                         <!-- Dropdown Criar -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -94,15 +186,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-
-                        <!-- Gerenciar Formulários -->
-                        <li class="nav-item">
-                            <a href="#" data-page="gerenciarformularios" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>Gerenciar Formulários</p>
-                            </a>
-                        </li>
+                        </li>                        
 
                         <!-- Sair -->
                         <li class="nav-item">
@@ -150,6 +234,97 @@
             }
         });
 
+        let usuarioEditando = null;
+
+        function listarUsuarios() {
+            $.ajax({
+            url: '/usuarios',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response && response.length > 0) {
+                $('#usuariosTable tbody').empty();
+
+                response.forEach(function(usuario, index) {
+                    debugger
+                    const row = `
+                    <tr data-id="${usuario._id}" class="text-center text-dark">
+                        <td>${index + 1}</td>
+                        <td class="nome">${usuario.nome}</td>
+                        <td class="email">${usuario.email}</td>
+                        <td class="dataNascimento">${new Date(usuario.dataNascimento).toLocaleDateString()}</td>
+                        <td class="telefone">${usuario.telefone || 'N/A'}</td>
+                        <td class="criadoEm">${new Date(usuario.criadoEm).toLocaleDateString()}</td>
+                        <td>
+                        <button class="btn btn-warning btn-sm btn-editar">Editar</button>
+                        <button class="btn btn-danger btn-sm btn-deletar">Deletar</button>
+                        </td>
+                    </tr>
+                    `;
+                    $('#usuariosTable tbody').append(row);
+                });
+                } else {
+                alert("Nenhum usuário encontrado.");
+                }
+            },
+            error: function() {
+                alert("Erro ao buscar usuários.");
+            }
+            });
+        }
+        
+        $(document).on('click', '.btn-editar', function() {
+        const row = $(this).closest('tr');
+        const id = row.data('id');
+        
+        window.location.href = `?tela=editar&id=${id}`;
+        });
+
+        $('#btnSalvar').on('click', function() {
+            const id = $(this).data('id');
+            const nome = $('#inputNome').val();
+            const email = $('#inputEmail').val();
+            const telefone = $('#inputTelefone').val();
+
+            $.ajax({
+            url: `/usuarios/${id}`,
+            type: 'PUT',
+            dataType: 'json',
+            data: {
+                nome,
+                email,
+                telefone
+            },
+            success: function(response) {
+                alert("Usuário atualizado com sucesso");
+                listarUsuarios(); // Recarregar a lista de usuários
+                $('#btnSalvar').hide(); // Ocultar o botão de salvar
+            },
+            error: function() {
+                alert("Erro ao atualizar usuário.");
+            }
+            });
+        });
+
+        $(document).on('click', '.btn-deletar', function() {
+            const row = $(this).closest('tr');
+            const id = row.data('id');
+            
+            if (confirm("Tem certeza que deseja excluir este usuário?")) {
+            $.ajax({
+                url: `/usuarios/${id}`,
+                type: 'DELETE',
+                success: function(response) {
+                alert("Usuário excluído com sucesso");
+                listarUsuarios(); // Recarregar a lista de usuários
+                },
+                error: function() {
+                alert("Erro ao excluir usuário.");
+                }
+            });
+            }
+        });
+
         $(document).ready(function () {
             function carregarTela(page) {
                 $.ajax({
@@ -176,16 +351,215 @@
             $('a.nav-link').on('click', function (e) {
                 const page = $(this).data('page'); // Nome da página a carregar
                 if (page) {
-                    e.preventDefault(); // Prevenir comportamento padrão do link
-                    carregarTela(page); // Carregar a tela correspondente
+                    e.preventDefault();
 
-                    // Atualizar a URL sem recarregar a página
-                    const newUrl = `${window.location.pathname}?tela=${page}`;
-                    window.history.pushState({ path: newUrl }, '', newUrl);
+                    if (window.location.search.indexOf(`tela=${page}`) === -1) {
+                        carregarTela(page); // Carregar a tela correspondente
+                        // Atualizar a URL sem recarregar a página
+                        const newUrl = `${window.location.pathname}?tela=${page}`;
+                        window.history.pushState({ path: newUrl }, '', newUrl);
+                    }
                 }
             });
         });
 
+        function adicionarCampo() {
+            var tabela = document.getElementById('camposTableBody');
+            var novaLinha = document.createElement('tr');
+
+            var tdCampo = document.createElement('td');
+            var inputCampo = document.createElement('input');
+            inputCampo.setAttribute('type', 'text');
+            inputCampo.setAttribute('name', 'campo[]');
+            inputCampo.setAttribute('class', 'form-control');
+            tdCampo.appendChild(inputCampo);
+            novaLinha.appendChild(tdCampo);
+
+            var tdTipo = document.createElement('td');
+            var selectTipo = document.createElement('select');
+            selectTipo.setAttribute('name', 'tipo[]');
+            selectTipo.setAttribute('class', 'form-control');
+            
+            var tipos = [
+                { value: 'text', label: 'Texto' },
+                { value: 'number', label: 'Número' },
+                { value: 'email', label: 'Email' },
+                { value: 'date', label: 'Data' },
+                { value: 'tel', label: 'Telefone' },
+                { value: 'password', label: 'Senha' },
+                { value: 'url', label: 'URL' },
+                { value: 'color', label: 'Cor' },
+                { value: 'file', label: 'Arquivo' }
+            ];
+
+            tipos.forEach(function(tipo) {
+                var option = document.createElement('option');
+                option.value = tipo.value;
+                option.textContent = tipo.label;
+                selectTipo.appendChild(option);
+            });
+
+            tdTipo.appendChild(selectTipo);
+            novaLinha.appendChild(tdTipo);
+
+            var tdAcao = document.createElement('td');
+            var btnRemover = document.createElement('button');
+            btnRemover.textContent = 'Remover';
+            btnRemover.setAttribute('type', 'button');
+            btnRemover.setAttribute('class', 'btn btn-danger btn-sm');
+            btnRemover.onclick = function() {
+                tabela.removeChild(novaLinha);
+            };
+            tdAcao.appendChild(btnRemover);
+            novaLinha.appendChild(tdAcao);
+
+            tabela.appendChild(novaLinha);
+        }
+
+        function salvarFormulario() {
+            const usuario_id = "<%= usuario.id %>";
+            const nome = document.getElementById('nomeFormulario').value;
+            const descricao = document.getElementById('descricaoFormulario').value;
+            const validade = document.getElementById('validadeFormulario').value;
+
+            const campos = [];
+            const camposInputs = document.querySelectorAll('input[name="campo[]"]');
+            const tiposCampos = document.querySelectorAll('select[name="tipo[]"]');
+
+            camposInputs.forEach((input, index) => {
+                campos.push({
+                    campo: input.value,
+                    tipo: tiposCampos[index].value
+                });
+            });
+
+            const dadosFormulario = {
+                usuario_id,
+                nome,
+                descricao,
+                validade,
+                campos
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/cadastroFormulario",
+                contentType: "application/json",
+                data: JSON.stringify(dadosFormulario),
+                success: function (response) {
+                    alert(response.message);
+                    window.location.reload();
+                },
+                error: function (xhr, status, error) {
+                    $('#content').html(`<p>Erro ao salvar o formulário: ${xhr.status} ${xhr.statusText}</p>`);
+                    console.error('Erro:', error);
+                }
+            });
+        }
+
+        function verCampos(formularioId, campos) {
+            const modalTitle = document.getElementById('modalCamposTitle');
+            const modalBody = document.getElementById('modalCamposBody');
+
+            // Define o título da modal
+            modalTitle.textContent = `Campos do Formulário: ${formularioId}`;
+
+            // Limpa o corpo da modal
+            modalBody.innerHTML = '';
+
+            // Adiciona os campos na modal
+            campos.forEach(campo => {
+                modalBody.innerHTML += `
+                    <div class="mb-2">
+                        <strong>Campo:</strong> ${campo.campo} <br>
+                        <strong>Tipo:</strong> ${campo.tipo}
+                    </div>
+                    <hr>
+                `;
+            });
+
+            // Exibe a modal
+            const modal = new bootstrap.Modal(document.getElementById('modalCampos'));
+            modal.show();
+        }
+
+        function obterFormularios() {
+            const id = "<%= usuario.id %>";
+            debugger;
+            $.ajax({
+                type: 'GET',
+                url: `/Formulario/${id}`,
+                success: function(response) {
+                    debugger;
+                    const tbody = $('#tabelaFormularios tbody');
+                    tbody.empty();
+
+                    if (response.codigo === 0) {
+                    const formulario = response.formulario;
+
+                    // Verifica se é um array ou um único objeto
+                    if (Array.isArray(formulario)) {
+                        formulario.forEach(form => {
+                            tbody.append(`
+                                <tr class="text-dark text-center">
+                                    <td>${form._id}</td>
+                                    <td>${form.nome}</td>
+                                    <td>${form.descricao}</td>
+                                    <td>${new Date(form.validade).toLocaleDateString()}</td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="verCampos('${form._id}', ${JSON.stringify(form.campos)})">Ver Campos</button>
+                                        <button class="btn btn-info" onclick="editarFormulario('${form._id}')">Editar</button>
+                                        <button class="btn btn-danger" onclick="deletarFormulario('${form._id}')">Deletar</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        tbody.append(`
+                            <tr class="text-dark text-center">
+                                <td>${formulario._id}</td>
+                                <td>${formulario.nome}</td>
+                                <td>${formulario.descricao}</td>
+                                <td>${new Date(formulario.validade).toLocaleDateString()}</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="verCampos('${formulario._id}', ${JSON.stringify(formulario.campos)})">Ver Campos</button>
+                                    <button class="btn btn-info" onclick="editarFormulario('${formulario._id}')">Editar</button>
+                                    <button class="btn btn-danger" onclick="deletarFormulario('${formulario._id}')">Deletar</button>
+                                </td>
+                            </tr>
+                        `);
+                    }
+                }
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao carregar formulários:', error);
+                    alert('Erro ao carregar os formulários.');
+                }
+            });
+        }
+
+        function editarFormulario(id) {
+            alert('Editar formulário com ID: ' + id);
+            // Implemente a lógica para editar um formulário
+        }
+
+        function deletarFormulario(id) {
+            if (confirm('Tem certeza que deseja deletar este formulário?')) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: `/api/formularios/${id}`,
+                    success: function(response) {
+                        alert('Formulário deletado com sucesso!');
+                        obterFormularios(); // Recarrega a lista de formulários
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Erro ao deletar o formulário.');
+                    }
+                });
+            }
+        }
+        
     </script>
 </body>
 

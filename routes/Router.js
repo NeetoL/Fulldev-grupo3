@@ -5,24 +5,30 @@ import * as PainelController from '../controllers/painelController.js';
 const router = express.Router();
 
 // Rotas principais
-router.get('/', HomeController.index); // Página inicial
-router.get('/painel', PainelController.index); // Painel principal
-router.get('/logon', PainelController.logon); // Página de login
-router.get('/logout', PainelController.logout); // Logout do sistema
+router.get('/', HomeController.index);
+router.get('/painel', PainelController.index);
+router.get('/logon', PainelController.logon);
+router.get('/logout', PainelController.logout);
 
 // Rotas de ações
-router.post('/processLogin', PainelController.processLogin); // Processa login
-router.get('/usuarios', HomeController.obterUsuarios); // Lista usuários
-router.post('/usuarios', HomeController.criarUsuario); // Cria novo usuário
-router.get('/usuarios/:id', HomeController.obterUsuarioPorId); // Obtém usuário por ID
-router.put('/usuarios/:id', HomeController.atualizarUsuario); // Atualiza usuário por ID
-router.delete('/usuarios/:id', HomeController.deletarUsuario); // Deleta usuário por ID
-router.post('/cadastro', HomeController.criarUsuario); // Cadastra novo usuário
+router.post('/processLogin', PainelController.processLogin);
+router.get('/usuarios', HomeController.obterUsuarios);
+router.post('/usuarios', HomeController.criarUsuario);
+router.get('/usuarios/:id', HomeController.obterUsuarioPorId);
+router.put('/usuarios/:id', HomeController.atualizarUsuario);
+router.delete('/usuarios/:id', HomeController.deletarUsuario);
+router.post('/cadastro', HomeController.criarUsuario);
+router.post('/cadastroFormulario', PainelController.criarFormulario);
+//FORMULARIO
+router.get('/Formulario', PainelController.obterFormulario);
+router.get('/Formulario/:id', PainelController.obterFormularioPorId);
+router.put('/Formulario/:id', PainelController.atualizarFormulario);
+router.delete('/Formulario/:id', PainelController.deletarFormulario);
 
 // Rotas dinâmicas do painel
-router.post('/painel/dashboard/:tela', PainelController.dashboard); // Carrega páginas dinâmicas
+router.post('/painel/dashboard/:tela', PainelController.dashboard);
 
 // Logo da aplicação
-router.get('/logo', HomeController.logo); // Obtém logo da aplicação
+router.get('/logo', HomeController.logo);
 
 export default router;

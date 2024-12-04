@@ -20,7 +20,10 @@
     "express": "^4.21.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
-    "mongoose": "^7.0.0"
+    "mongodb": "^5.8.0",
+    "mongoose": "^7.6.0",
+    "punycode": "^2.3.1",
+    "stable": "^0.1.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

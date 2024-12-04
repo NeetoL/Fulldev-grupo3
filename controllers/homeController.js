@@ -8,7 +8,6 @@ export const index = (req, res) => {
   res.sendFile(filePath); 
 };
 
-
 export const logo = (req, res) => {
   const filePath = path.join(process.cwd(), 'views', 'assets', 'img', 'icon.fw.png');
   res.sendFile(filePath);

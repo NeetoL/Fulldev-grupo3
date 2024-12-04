@@ -1,10 +1,10 @@
- <!-- Content Wrapper -->
- <div class="content-wrapper">
+<!-- Content Wrapper -->
+<div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Gerenciar Formulário</h1>
+                    <h1 class="m-0 text-dark">Gerenciar Formulário</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -15,4 +15,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Tabela para Exibir os Formulários -->
+    <div class="container-fluid">
+        <table id="tabelaFormularios" class="table table-bordered table-striped">
+            <thead>
+                <tr class="text-dark text-center">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Validade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aqui os formulários serão inseridos dinamicamente -->
+            </tbody>
+        </table>
+    </div>
 </div>
+<script>
+    obterFormularios();
+</script>

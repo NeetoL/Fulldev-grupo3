@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <!-- Link para o Bootstrap (se necessário) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Editar Usuário</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="?tela=dashboard">Home</a></li>
+                            <li class="breadcrumb-item active" id="breadcrumb">Editar Usuário</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário de Edição -->
+        <div class="container mt-5">
+            <form id="formEditarUsuario">
+                <div class="form-group">
+                    <label for="inputNome">Nome:</label>
+                    <input type="text" class="form-control" id="inputNome" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email:</label>
+                    <input type="email" class="form-control" id="inputEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputTelefone">Telefone:</label>
+                    <input type="text" class="form-control" id="inputTelefone">
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- jQuery (necessário para o Ajax) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        // Captura o parâmetro 'id' da URL
+        const params = new URLSearchParams(window.location.search);
+        const idUsuario = params.get('id'); // Pega o id passado na URL
+
+        // Realiza a requisição para obter os dados do usuário
+        $.ajax({
+            url: `/usuarios/${idUsuario}`,  // Use a rota GET para obter os dados do usuário
+            type: 'GET',
+            success: function(response) {
+                // Preenche os campos com os dados do usuário
+                $('#inputNome').val(response.nome);
+                $('#inputEmail').val(response.email);
+                $('#inputTelefone').val(response.telefone);
+            },
+            error: function() {
+                alert('Erro ao carregar os dados do usuário.');
+            }
+        });
+
+        // Lógica para salvar as alterações
+        $('#formEditarUsuario').on('submit', function(e) {
+            e.preventDefault();
+
+            // Coleta os dados do formulário
+            const dadosUsuario = {
+                nome: $('#inputNome').val(),
+                email: $('#inputEmail').val(),
+                telefone: $('#inputTelefone').val(),
+            };
+
+            // Envia os dados atualizados via AJAX (PUT)
+            $.ajax({
+                url: `/usuarios/${idUsuario}`,  // Use a rota PUT para atualizar os dados do usuário
+                type: 'PUT',
+                data: dadosUsuario,
+                success: function() {
+                    alert('Usuário atualizado com sucesso!');
+                    window.location.href = '?tela=gerenciarUsuarios';  // Redireciona para a lista de usuários
+                },
+                error: function() {
+                    alert('Erro ao atualizar o usuário.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
