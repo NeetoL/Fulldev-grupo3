@@ -147,6 +147,27 @@ export const obterFormularioPorId = async (req, res) => {
     }
 };
 
+export const obterDetalhesFormulario = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const formulario = await Formulario.findById(id);
+
+        if (!formulario) {
+            return res.status(200).json({ codigo : 1, message: 'Formulário nao encontrado.' });
+        }
+
+        res.status(200).json({
+            codigo : 0,
+            message: 'Formulário obtido com sucesso!',
+            formulario
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao obter o formulário.', error: error.message });
+    }
+};
+
 export const atualizarFormulario = async (req, res) => {
     const { id } = req.params;
     const { nome, descricao, validade, campos } = req.body;

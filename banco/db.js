@@ -7,18 +7,15 @@ const connectToDatabase = async () => {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      maxPoolSize: 10,  // Número máximo de conexões simultâneas
+      maxPoolSize: 10,
     });
     console.log('Conectado ao MongoDB com sucesso!');
   } catch (error) {
-    // Em caso de erro, loga o erro
     console.error('Erro ao conectar ao MongoDB:', error);
-    process.exit(1); // Encerra o processo se não conseguir conectar
+    process.exit(1);
   }
 };
 
-// Conecta ao MongoDB na inicialização
 connectToDatabase();
 
-// Exporta o mongoose para ser utilizado em outras partes da aplicação
 export default mongoose;

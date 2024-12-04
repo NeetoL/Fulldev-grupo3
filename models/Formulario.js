@@ -21,7 +21,7 @@ const formularioSchema = new mongoose.Schema({
     ],
     usuario_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario', // Referencia ao modelo de usuário
+        ref: 'Usuario',
         required: true
     },
     criadoEm: {

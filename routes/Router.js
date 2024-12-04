@@ -9,6 +9,7 @@ router.get('/', HomeController.index);
 router.get('/painel', PainelController.index);
 router.get('/logon', PainelController.logon);
 router.get('/logout', PainelController.logout);
+router.get('/detalhes', HomeController.detalhes);
 
 // Rotas de ações
 router.post('/processLogin', PainelController.processLogin);
@@ -20,8 +21,9 @@ router.delete('/usuarios/:id', HomeController.deletarUsuario);
 router.post('/cadastro', HomeController.criarUsuario);
 router.post('/cadastroFormulario', PainelController.criarFormulario);
 //FORMULARIO
-router.get('/Formulario', PainelController.obterFormulario);
+router.get('/Formulario', PainelController.obterFormulario);    
 router.get('/Formulario/:id', PainelController.obterFormularioPorId);
+router.get('/FormularioDetalhes/:id', PainelController.obterDetalhesFormulario);
 router.put('/Formulario/:id', PainelController.atualizarFormulario);
 router.delete('/Formulario/:id', PainelController.deletarFormulario);
 
@@ -30,5 +32,6 @@ router.post('/painel/dashboard/:tela', PainelController.dashboard);
 
 // Logo da aplicação
 router.get('/logo', HomeController.logo);
+router.get('/img1920', HomeController.img1920);
 
 export default router;

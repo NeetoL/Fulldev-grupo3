@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css" rel="stylesheet">
+</head>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    
+    if (id) {
+        fetch(`/FormularioDetalhes/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);                
+
+                const campos = data.formulario.campos;
+                const formContainer = document.getElementById('formulario-container'); 
+
+                campos.forEach(campo => {
+                    const label = document.createElement('label');
+                    label.setAttribute('for', campo._id);
+                    label.textContent = campo.campo;
+
+                    const input = document.createElement('input');
+                    input.setAttribute('type', campo.tipo);
+                    input.setAttribute('id', campo._id);
+                    input.setAttribute('name', campo._id);
+                    input.setAttribute('class', 'form-control');
+                    
+                    const div = document.createElement('div');
+                    div.classList.add('mb-3');
+
+                    div.appendChild(label);
+                    div.appendChild(input);
+
+                    formContainer.appendChild(div);
+                });
+
+                // Criando o botão de envio
+                const buttonDiv = document.createElement('div');
+                buttonDiv.classList.add('mb-3', 'text-center');
+
+                const button = document.createElement('button');
+                button.setAttribute('type', 'submit');
+                button.setAttribute('class', 'btn btn-primary');
+                button.textContent = 'Enviar';
+
+                buttonDiv.appendChild(button);
+                formContainer.appendChild(buttonDiv);
+
+            })
+            .catch(error => {
+                console.error('Erro ao buscar os dados do formulário:', error);
+            });
+    } else {
+        console.error('ID não encontrado na URL');
+    }
+});
+
+
+
+</script>
+<style>
+    body {
+        background-color: #1c1c1c;
+        color: #ffffff;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar-dark {
+        background-color: #1c1c1c !important;
+        border-bottom: 2px solid #B22D00;
+        height: auto;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: #ffffff;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #B22D00;
+    }
+
+    a {
+        color: #B22D00;
+    }
+
+    a:hover {
+        color: #9E2800;
+        text-decoration: none;
+    }
+
+    .footer {
+        background-color: #121212;
+        color: #ffffff;
+        border-top: 2px solid #B22D00;
+        text-align: center;
+        padding: 10px;
+        margin-top: auto;
+        position: fixed;
+        width: 100%;
+        bottom:0;
+        left:0;
+    }
+
+    .content {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card {
+        background-color: #333;
+        border: 1px solid #444;
+        border-radius: 10px;
+        color: #fff;
+        transition: transform 0.2s ease-in-out;
+    }
+
+
+    .card img {
+        height: 150px;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-title {
+        color: #B22D00;
+    }
+
+    .navbar-logo {
+        height: 40px;
+        width: auto;
+        display: inline-block;
+        border-radius: 30%;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+</style>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+    <div class="wrapper">
+        <nav class="header navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav ml-3 mt-1 logo">
+                <li class="nav-item">
+                    <img src="/logo" alt="Logo" class="navbar-logo">
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Sobre</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contato</a>
+                </li>
+            </ul>
+        </nav>
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card">
+        <div class="card-body" id="formulario-container">
+            <!-- Campos dinâmicos serão inseridos aqui -->
+        </div>
+    </div>
+</div>
+        
+
+        <footer class="footer text-center">
+            <strong>&copy; 2024 <a href="#">FullVev</a>.</strong> Todos os direitos reservados.
+        </footer>
+    </div>
+    
+</body>
+</html>

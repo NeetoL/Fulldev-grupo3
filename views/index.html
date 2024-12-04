@@ -1,171 +1,194 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FullDev</title>
+    <title>Dashboard</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ+V5X7NlqJlZlgUqbsVgzlr6/M0q1ttwM1lJzUzN9BOUlZaD2siWQ4N6WSO" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
         }
-        .main-header {
-            background-color: #B22D00;
-            color: white;
-            padding: 20px 0;
+
+        .navbar-dark {
+            background-color: #1c1c1c !important;
+            border-bottom: 2px solid #B22D00;
+            height: auto;
         }
-        .cta-button {
-            background-color: #B22D00;
-            color: white;
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #ffffff;
         }
-        .feature-icon {
-            font-size: 2rem;
+
+        .navbar-dark .navbar-nav .nav-link:hover {
             color: #B22D00;
         }
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
+
+        a {
+            color: #B22D00;
         }
-        .developer-img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
+
+        a:hover {
+            color: #9E2800;
+            text-decoration: none;
+        }
+
+        .footer {
+            background-color: #121212;
+            color: #ffffff;
+            border-top: 2px solid #B22D00;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            position: fixed;
+            width: 100%;
+            bottom:0;
+            left:0;
+        }
+
+        .content {
+            flex-grow: 1; /* Ocupa o espaço disponível */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: #fff;
+            transition: transform 0.2s ease-in-out;
+            height: 300px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+
+        .card img {
+            height: 150px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-title {
+            color: #B22D00;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            display: inline-block;
+            border-radius: 30%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0;
         }
     </style>
 </head>
-<body>
-    <!-- Cabeçalho -->
-    <header class="main-header text-center">
-        <div class="container">
-            <h1>Transforme seus processos com formulários personalizados</h1>
-            <p>Simplifique a coleta de dados com facilidade e segurança.</p>
-            <a href="#features" class="btn cta-button">Descubra mais</a>
-        </div>
-    </header>
 
-    <!-- Proposta de Valor -->
-    <section class="text-center py-5" id="features">
-        <div class="container">
-            <h2>O que oferecemos</h2>
-            <p>Com nosso sistema de criação de formulários, você pode personalizar cada detalhe para atender às suas necessidades específicas.</p>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-check-circle"></i>
-                    </div>
-                    <h4>Fácil Personalização</h4>
-                    <p>Crie formulários adaptados ao seu fluxo de trabalho com a opção de arrastar e soltar campos.</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-shield-lock"></i>
-                    </div>
-                    <h4>Segurança de Dados</h4>
-                    <p>Todos os dados coletados são criptografados e armazenados de forma segura.</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-gear"></i>
-                    </div>
-                    <h4>Integração Simples</h4>
-                    <p>Integre com seus sistemas de forma rápida e sem complicação.</p>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+    <div class="wrapper">
+        <nav class="header navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav ml-3 mt-1 logo">
+                <li class="nav-item">
+                    <img src="/logo" alt="Logo" class="navbar-logo">
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Sobre</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contato</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div class="container">
+                <div class="row g-4" id="resultado">
+                    
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Quem Somos Nós -->
-    <section class="bg-light text-center py-5">
-        <div class="container">
-            <h2>Quem Somos Nós</h2>
-            <p>Somos uma equipe apaixonada por tornar a criação de formulários mais simples e acessível para todos.</p>
-            <div class="row">
-                <!-- Developer 1 -->
-                <div class="col-md-2 mb-4">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="developer-img" alt="Developer 1">
-                    <h5>João Silva</h5>
-                    <p>Frontend Developer</p>
-                </div>
-                <!-- Developer 2 -->
-                <div class="col-md-2 mb-4">
-                    <img src="https://randomuser.me/api/portraits/women/35.jpg" class="developer-img" alt="Developer 2">
-                    <h5>Maria Oliveira</h5>
-                    <p>Backend Developer</p>
-                </div>
-                <!-- Developer 3 -->
-                <div class="col-md-2 mb-4">
-                    <img src="https://randomuser.me/api/portraits/men/40.jpg" class="developer-img" alt="Developer 3">
-                    <h5>Carlos Santos</h5>
-                    <p>DevOps Engineer</p>
-                </div>
-                <!-- Developer 4 -->
-                <div class="col-md-2 mb-4">
-                    <img src="https://randomuser.me/api/portraits/women/42.jpg" class="developer-img" alt="Developer 4">
-                    <h5>Ana Costa</h5>
-                    <p>UI/UX Designer</p>
-                </div>
-                <!-- Developer 5 -->
-                <div class="col-md-2 mb-4">
-                    <img src="https://randomuser.me/api/portraits/men/50.jpg" class="developer-img" alt="Developer 5">
-                    <h5>Lucas Pereira</h5>
-                    <p>Product Manager</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <footer class="footer text-center">
+            <strong>&copy; 2024 <a href="#">FullVev</a>.</strong> Todos os direitos reservados.
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            formularios();
+        })
 
-    <!-- Preços -->
-    <section class="py-5 text-center" id="pricing">
-        <div class="container">
-            <h2>Planos de Preços</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Plano Básico</h4>
-                            <p class="card-text">Ideal para pequenas empresas que querem começar a criar formulários.</p>
-                            <p><strong>$19/mês</strong></p>
-                            <a href="#" class="btn cta-button">Assine Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Plano Premium</h4>
-                            <p class="card-text">Perfeito para empresas que necessitam de mais funcionalidades e integrações.</p>
-                            <p><strong>$49/mês</strong></p>
-                            <a href="#" class="btn cta-button">Assine Agora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Plano Enterprise</h4>
-                            <p class="card-text">Para grandes empresas com necessidades avançadas de personalização e suporte dedicado.</p>
-                            <p><strong>$99/mês</strong></p>
-                            <a href="#" class="btn cta-button">Assine Agora</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        const formularios = function (){
+            $.ajax({
+                url: '/Formulario',
+                method: 'GET',
+                contentType: 'application/json',
+                success: function(response) {
+                    var html = '';
+                    response.formularios.forEach(element => {
+                        // Formatando a data de criação e validade
+                        var criadoEm = new Date(element.criadoEm);
+                        var validade = new Date(element.validade);
 
-    <!-- Rodapé -->
-    <footer class="footer text-center">
-        <div class="container">
-            <p>&copy; 2024 Nome da Empresa | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Serviço</a></p>
-            <div>
-                <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
-            </div>
-        </div>
-    </footer>
+                        // Formatar as datas para uma string legível
+                        var criadoEmFormatado = criadoEm.toLocaleDateString('pt-BR');
+                        var validadeFormatada = validade.toLocaleDateString('pt-BR');
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pTt0CQZjYWV8k+FhcFhM7v5b6tEdjJc9pNxdgdjGsHcm6Xb" crossorigin="anonymous"></script>
+
+                        html += '<div class="col-md-3 col-sm-6">';
+                        html +=    `<a href="/detalhes?id=${element._id}" class="card-link">`;
+                        html +=        '<div class="card">';
+                        html +=            '<img src="/logo" alt="Imagem Card" class="card-img-top">';
+                        html +=            '<div class="card-body">';
+                        html +=                `<h5 class="card-title">${element.nome}</h5>`;
+                        html +=                `<p class="card-text">${element.descricao}</p>`;
+                        html +=                `<p><strong>Criado em:</strong> ${criadoEmFormatado}</p>`;
+                        html +=                `<p><strong>Validade:</strong> ${validadeFormatada}</p>`;
+                        html +=            '</div>';
+                        html +=        '</div>';
+                        html +=    '</a>';
+                        html += '</div>';
+                    });
+
+                    $("#resultado").empty();
+                    $("#resultado").html(html);
+                },
+                error: function(xhr, status, error) {
+                    alert('Erro no login. Tente novamente.');
+                }
+            });
+        }
+
+        const formularioId = function(){
+
+        }
+    </script>
 </body>
+
 </html>

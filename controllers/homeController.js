@@ -12,6 +12,10 @@ export const logo = (req, res) => {
   const filePath = path.join(process.cwd(), 'views', 'assets', 'img', 'icon.fw.png');
   res.sendFile(filePath);
 }
+export const img1920 = (req, res) => {
+    const filePath = path.join(process.cwd(), 'views', 'assets', 'img', '1920x1080.png');
+    res.sendFile(filePath);
+  }
 
 // Obter todos os usuários
 export const obterUsuarios = async (req, res) => {
@@ -87,6 +91,11 @@ export const atualizarUsuario = async (req, res) => {
     } catch (erro) {
         res.status(500).json({ mensagem: 'Erro ao atualizar usuário', erro });
     }
+};
+
+export const detalhes = (req, res) => {
+    const painelPath = path.join(process.cwd(), 'views', 'detalhes.html');
+    res.sendFile(painelPath);
 };
 
 export const deletarUsuario = async (req, res) => {
