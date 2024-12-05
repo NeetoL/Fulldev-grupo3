@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - FullDev</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap e Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
@@ -138,7 +140,12 @@
                 </div>
                 <button type="submit" class="btn-custom">Cadastrar</button>
                 <div class="footer-text">
-                    <p><a href="/">Voltar para o site</a></p>
+                    <a href="/" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Voltar para o site
+                    </a>
+                    <a href="/painel" class="btn btn-secondary">
+                        <i class="bi bi-person"></i> Já possuo uma conta
+                    </a>
                 </div>
             </form>
         </div>
@@ -149,7 +156,7 @@
     <script>
         $(document).ready(function() {
             $('#formCadastro').on('submit', function(e) {
-                e.preventDefault(); // Evita o envio padrão
+                e.preventDefault();
 
                 const nome = $('#nome').val();
                 const email = $('#email').val();
@@ -161,13 +168,13 @@
                 const dadosCadastro = { nome, email, senha, dataNascimento, telefone, endereco };
 
                 $.ajax({
-                    url: '/processCadastro',
+                    url: '/usuarios',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(dadosCadastro),
                     success: function(response) {
                         alert('Cadastro realizado com sucesso!');
-                        window.location.href = '/login';  // Redireciona após cadastro
+                        window.location.href = '/painel'; 
                     },
                     error: function(xhr, status, error) {
                         alert('Erro no cadastro. Tente novamente.');

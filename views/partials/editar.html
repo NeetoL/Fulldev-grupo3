@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
-    <!-- Link para o Bootstrap (se necessário) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Content Wrapper -->
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Editar Usuário</h1>
+                        <h1 class="m-0 text-dark texto">Editar Usuário</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -26,7 +24,6 @@
             </div>
         </div>
 
-        <!-- Formulário de Edição -->
         <div class="container mt-5">
             <form id="formEditarUsuario">
                 <div class="form-group">
@@ -41,56 +38,63 @@
                     <label for="inputTelefone">Telefone:</label>
                     <input type="text" class="form-control" id="inputTelefone">
                 </div>
-                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                <div class="form-group">
+                    <label for="inputTelefone">Permissão:</label>
+                    <select name="permissao" id="permissao" class="form-control">
+                        <option value="usuario">Usuário</option>
+                        <option value="moderador">Moderador</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Salvar Alterações</button>
             </form>
         </div>
     </div>
 
-    <!-- jQuery (necessário para o Ajax) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
-        // Captura o parâmetro 'id' da URL
+        temadark()
         const params = new URLSearchParams(window.location.search);
-        const idUsuario = params.get('id'); // Pega o id passado na URL
+        const idUsuario = params.get('id');
 
-        // Realiza a requisição para obter os dados do usuário
         $.ajax({
-            url: `/usuarios/${idUsuario}`,  // Use a rota GET para obter os dados do usuário
+            url: `/usuarios/${idUsuario}`,
             type: 'GET',
             success: function(response) {
-                // Preenche os campos com os dados do usuário
                 $('#inputNome').val(response.nome);
                 $('#inputEmail').val(response.email);
                 $('#inputTelefone').val(response.telefone);
+                $('#permissao').val(response.nivelAcesso)
             },
             error: function() {
                 alert('Erro ao carregar os dados do usuário.');
             }
         });
 
-        // Lógica para salvar as alterações
         $('#formEditarUsuario').on('submit', function(e) {
             e.preventDefault();
 
-            // Coleta os dados do formulário
             const dadosUsuario = {
                 nome: $('#inputNome').val(),
                 email: $('#inputEmail').val(),
                 telefone: $('#inputTelefone').val(),
+                nivelAcesso: $('#permissao').val() // admin, moderador ou usuario
             };
 
-            // Envia os dados atualizados via AJAX (PUT)
             $.ajax({
-                url: `/usuarios/${idUsuario}`,  // Use a rota PUT para atualizar os dados do usuário
+                url: `/usuarios/${idUsuario}`,
                 type: 'PUT',
-                data: dadosUsuario,
-                success: function() {
-                    alert('Usuário atualizado com sucesso!');
-                    window.location.href = '?tela=gerenciarUsuarios';  // Redireciona para a lista de usuários
+                contentType: 'application/json',
+                data: JSON.stringify(dadosUsuario),
+                success: function(response) {
+                    debugger;
+                    alert(response.mensagem);
+                    window.location.href = '?tela=usuarios';
                 },
-                error: function() {
-                    alert('Erro ao atualizar o usuário.');
+                error: function(xhr) {
+                    console.error(xhr.responseJSON);
+                    alert('Erro ao atualizar o usuário: ' + (xhr.responseJSON?.mensagem || 'Erro desconhecido.'));
                 }
             });
         });

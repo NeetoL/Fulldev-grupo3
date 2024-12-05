@@ -1,0 +1,43 @@
+<script>
+    temadark();
+    dadosUsuarios();
+</script>
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark texto">Dados do Usuário</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="?tela=dashboard">Home</a></li>
+                        <li class="breadcrumb-item active" id="breadcrumb">Dados do Usuário</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Informações Pessoais</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Nome:</strong> <span id="nome"></span></p>
+                        <p><strong>Email:</strong> <span id="email"></span></p>
+                        <p><strong>Telefone:</strong> <span id="telefone"></span></p>
+                        <p><strong>Data de Nascimento:</strong> <span id="dataNasc"></span></p>
+                        <p><strong>Nível de Acesso:</strong> <span id="nivel"></span></p>
+                        <p><strong>Criado em:</strong> <span id="criacao"></span></p>
+                    </div>
+                    <div class="card-footer text-center"><button class="btn btn-warning">Editar</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

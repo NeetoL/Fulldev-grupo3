@@ -1,5 +1,6 @@
 <script>
     temadark()
+    obterDadosForm()
 </script>
  <!-- Content Wrapper -->
  <div class="content-wrapper">
@@ -7,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark texto">Criar Formulário</h1>
+                    <h1 class="m-0 text-dark texto">Editar Formulário</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="?tela=dashboard">Home</a></li>
-                        <li class="breadcrumb-item active" id="breadcrumb">Criar Formulário</li>
+                        <li class="breadcrumb-item active" id="breadcrumb">Editar Formulário</li>
                     </ol>
                 </div>
             </div>
@@ -33,13 +34,13 @@
 
     <div class="form-group texto">
         <label for="validadeFormulario">Validade</label>
-        <input type="date" id="validadeFormulario" class="form-control texto color-custom" required>
+        <input type="text" id="validadeFormulario" class="form-control texto color-custom" required>
     </div>
 
     <h3 class="texto">Campos do Formulário</h3>
     <table class="table table-bordered">
         <thead>
-            <tr class="texto">
+            <tr class="text-dark text-center texto">
                 <th>Campo</th>
                 <th>Tipo</th>
                 <th>Ação</th>

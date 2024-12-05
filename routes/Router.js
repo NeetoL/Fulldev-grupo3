@@ -23,6 +23,7 @@ router.post('/cadastroFormulario', PainelController.criarFormulario);
 //FORMULARIO
 router.get('/Formulario', PainelController.obterFormulario);    
 router.get('/Formulario/:id', PainelController.obterFormularioPorId);
+router.get('/obterFormularioPorIdForm/:id', PainelController.obterFormularioPorIdForm);
 router.get('/FormularioDetalhes/:id', PainelController.obterDetalhesFormulario);
 router.put('/Formulario/:id', PainelController.atualizarFormulario);
 router.delete('/Formulario/:id', PainelController.deletarFormulario);

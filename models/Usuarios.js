@@ -29,6 +29,12 @@ const usuarioSchema = new mongoose.Schema({
         estado: { type: String, required: false },
         cep: { type: String, required: false }
     },
+    nivelAcesso: {
+        type: String,
+        required: true,
+        enum: ['admin', 'moderador', 'usuario'],
+        default: 'usuario'
+    },
     criadoEm: {
         type: Date,
         default: Date.now

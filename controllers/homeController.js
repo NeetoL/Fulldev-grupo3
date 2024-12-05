@@ -2,22 +2,21 @@ import Usuario from '../models/Usuarios.js';
 import bcrypt from 'bcrypt';
 import path from 'path';
 
-// Método para obter a pagina index
 export const index = (req, res) => {
   const filePath = path.join(process.cwd(), 'views', 'index.html');
   res.sendFile(filePath); 
-};
+}
 
 export const logo = (req, res) => {
   const filePath = path.join(process.cwd(), 'views', 'assets', 'img', 'icon.fw.png');
   res.sendFile(filePath);
 }
+
 export const img1920 = (req, res) => {
     const filePath = path.join(process.cwd(), 'views', 'assets', 'img', '1920x1080.png');
     res.sendFile(filePath);
-  }
+}
 
-// Obter todos os usuários
 export const obterUsuarios = async (req, res) => {
     try {
         const usuarios = await Usuario.find();
@@ -25,27 +24,23 @@ export const obterUsuarios = async (req, res) => {
     } catch (erro) {
         res.status(500).json({ mensagem: 'Erro ao buscar usuários', erro });
     }
-};
+}
 
-// Função para criar um novo usuário
 export const criarUsuario = async (req, res) => {
   try {
       const { nome, email, senha, dataNascimento, telefone, endereco } = req.body;
 
-      // Verifica se o email já está cadastrado
       const usuarioExistente = await Usuario.findOne({ email });
       if (usuarioExistente) {
           return res.status(400).json({ mensagem: 'Email já cadastrado.' });
       }
 
-      // Criptografa a senha antes de salvar
-      const senhaHash = await bcrypt.hash(senha, 10); // Ajuste o saltRounds conforme necessário
+      const senhaHash = await bcrypt.hash(senha, 10);
 
-      // Cria um novo usuário com a senha criptografada
       const novoUsuario = new Usuario({
           nome,
           email,
-          senha: senhaHash, // Atribui a senha criptografada ao campo 'senha'
+          senha: senhaHash,
           dataNascimento,
           telefone,
           endereco
@@ -58,9 +53,8 @@ export const criarUsuario = async (req, res) => {
       console.error('Erro ao cadastrar usuário:', erro);
       res.status(500).json({ mensagem: 'Erro ao cadastrar usuário', erro });
   }
-};
+}
 
-// Obter um usuário pelo ID
 export const obterUsuarioPorId = async (req, res) => {
     try {
         const { id } = req.params;
@@ -74,7 +68,7 @@ export const obterUsuarioPorId = async (req, res) => {
     } catch (erro) {
         res.status(500).json({ mensagem: 'Erro ao buscar usuário', erro });
     }
-};
+}
 
 export const atualizarUsuario = async (req, res) => {
     try {
@@ -84,19 +78,19 @@ export const atualizarUsuario = async (req, res) => {
         const usuario = await Usuario.findByIdAndUpdate(id, dadosAtualizados, { new: true });
 
         if (!usuario) {
-            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+            return res.status(404).json({ mensagem: 'Usuário não encontrado',dadosAtualizados });
         }
 
-        res.status(200).json({ mensagem: 'Usuário atualizado com sucesso', usuario });
+        res.status(200).json({ mensagem: 'Usuário atualizado com sucesso', dadosAtualizados });
     } catch (erro) {
         res.status(500).json({ mensagem: 'Erro ao atualizar usuário', erro });
     }
-};
+}
 
 export const detalhes = (req, res) => {
     const painelPath = path.join(process.cwd(), 'views', 'detalhes.html');
     res.sendFile(painelPath);
-};
+}
 
 export const deletarUsuario = async (req, res) => {
     try {
@@ -111,4 +105,4 @@ export const deletarUsuario = async (req, res) => {
     } catch (erro) {
         res.status(500).json({ mensagem: 'Erro ao deletar usuário', erro });
     }
-};
+}

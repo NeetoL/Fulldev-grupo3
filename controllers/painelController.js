@@ -8,16 +8,16 @@ export const index = (req, res) => {
         let nomeCompleto = req.session.usuarioNome || "";
         let partesNome = nomeCompleto.trim().split(" ");
 
-        // Filtrar apenas o primeiro e o último nome
         let nomeFiltrado = partesNome.length > 1
             ? `${partesNome[0]} ${partesNome[partesNome.length - 1]}`
-            : partesNome[0]; // Caso o nome tenha apenas uma palavra
+            : partesNome[0];
 
         const usuario = {
             nome: nomeFiltrado,
             nomeCompleto: nomeCompleto,
             email: req.session.usuarioEmail,
-            id: req.session.usuarioId
+            id: req.session.usuarioId,
+            nivel: req.session.nivel
         };
 
         res.render('painel', { usuario }); 
@@ -37,18 +37,19 @@ export const processLogin = async (req, res) => {
     const usuario = await Usuario.findOne({ email });
 
     if (!usuario) {
-        return res.status(401).send('Credenciais inválidas.');  // Mensagem genérica
+        return res.status(401).send('Credenciais inválidas.');
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaValida) {
-        return res.status(401).send('Credenciais inválidas.');  // Mensagem genérica
+        return res.status(401).send('Credenciais inválidas.');
     }
 
     req.session.isLoggedIn = true;
     req.session.usuarioId = usuario._id;
     req.session.usuarioNome = usuario.nome;
+    req.session.nivel = usuario.nivelAcesso;
 
     res.status(200).json({
         logado : req.session.isLoggedIn,
@@ -82,13 +83,11 @@ export const criarFormulario = async (req, res) => {
     const { nome, descricao, validade, campos, usuario_id } = req.body;
 
     try {
-        // Verifica se o criadorId corresponde a um usuário válido
         const usuario = await Usuario.findById(usuario_id);
         if (!usuario) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        // Criação de um novo formulário
         const novoFormulario = new Formulario({
             nome,
             descricao,
@@ -97,10 +96,8 @@ export const criarFormulario = async (req, res) => {
             usuario_id
         });
 
-        // Salva o formulário no banco de dados
         await novoFormulario.save();
 
-        // Retorna uma resposta de sucesso com os dados do novo formulário
         res.status(201).json({
             message: 'Formulário criado com sucesso!',
             formulario: novoFormulario
@@ -115,7 +112,6 @@ export const obterFormulario = async (req, res) => {
     try {
         const formularios = await Formulario.find();
 
-        // Retorna os formulários encontrados
         res.status(200).json({
             message: 'Formulários obtidos com sucesso!',
             formularios
@@ -131,6 +127,27 @@ export const obterFormularioPorId = async (req, res) => {
 
     try {
         const formulario = await Formulario.findOne({ usuario_id: id }).populate('usuario_id', 'nome email');
+
+        if (!formulario) {
+            return res.status(200).json({ codigo : 1, message: 'Formulário não encontrado.' });
+        }
+
+        res.status(200).json({
+            codigo : 0,
+            message: 'Formulário obtido com sucesso!',
+            formulario
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao obter o formulário.', error: error.message });
+    }
+};
+
+export const obterFormularioPorIdForm = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const formulario = await Formulario.findOne({ _id: id });
 
         if (!formulario) {
             return res.status(200).json({ codigo : 1, message: 'Formulário não encontrado.' });

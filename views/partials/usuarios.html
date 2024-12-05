@@ -1,9 +1,23 @@
+<script>
+    $(document).ready(function () {
+            const body = document.body;
+            const btn = document.getElementById('toggle-dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+               $(".texto").removeClass("text-dark")
+               $(".texto").addClass("text-light")
+            } else {
+                $(".texto").removeClass("text-light")
+                $(".texto").addClass("text-dark")
+            }
+    })
+ </script>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Gerenciar Usuarios</h1>
+                    <h1 class="m-0 text-dark texto">Gerenciar Usuarios</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -17,9 +31,9 @@
 
     <!-- Tabela de usuários -->
     <div class="container-fluid">
-        <table class="table table-bordered table-striped" id="usuariosTable">
+        <table class="table table-bordered" id="usuariosTable">
             <thead>
-                <tr class="text-center text-dark">
+                <tr class="text-center text-dark texto">
                     <th>#</th>
                     <th>Nome</th>
                     <th>Email</th>
