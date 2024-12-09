@@ -1,3 +1,13 @@
+<style>
+    .breadcrumb-item a{
+        color: #B22D00 !important;
+    }
+
+    input:focus, textarea:focus, select:focus{
+        border-color: #B22D00 !important;
+    }
+</style>
+
 <script>
     temadark()
 </script>
@@ -49,8 +59,9 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" onclick="adicionarCampo()">Adicionar Campo</button>
-
-    <button type="button" class="btn btn-success" onclick="salvarFormulario()">Salvar Formulário</button>
+    <div class="mb-2">
+        <button type="button" class="btn btn-primary" onclick="adicionarCampo()">Adicionar Campo</button>
+        <button type="button" class="btn btn-success" onclick="salvarFormulario()">Salvar Formulário</button>
+    </div>
 </div>
 </div>
